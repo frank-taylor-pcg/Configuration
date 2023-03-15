@@ -10,18 +10,17 @@ namespace ConfigurationTest.Configs;
 
 public class BasicConfig : IEquatable<BasicConfig>
 {
-	// TODO: Characters get converted to integers by the XML serializer, but the JSON serializer works perfectly
 	// The setters have to exist (despite the optimization ReSharper suggests), or these won't serialize properly
-	public char CharValue { get; set; } = Constants.CharValue;
+	public bool BoolValue { get; set; } = Constants.BoolValue;
 	public int IntegerValue { get; set; } = Constants.IntegerValue;
 	public float FloatValue { get; set; } = Constants.FloatValue;
 	public string StringValue { get; set; } = Constants.StringValue;
 
 	public BasicConfig() { }
 
-	public BasicConfig(char c, int i, float f, string s)
+	public BasicConfig(bool b, int i, float f, string s)
 	{
-		CharValue = c;
+		BoolValue = b;
 		IntegerValue = i;
 		FloatValue = f;
 		StringValue = s;
@@ -29,14 +28,14 @@ public class BasicConfig : IEquatable<BasicConfig>
 
 	public override string ToString()
 	{
-		return $"{CharValue} | {IntegerValue} | {FloatValue} | {StringValue}";
+		return $"{BoolValue} | {IntegerValue} | {FloatValue} | {StringValue}";
 	}
 
 	public bool Equals(BasicConfig? other)
 	{
 		if (ReferenceEquals(null, other)) return false;
 		if (ReferenceEquals(this, other)) return true;
-		return CharValue == other.CharValue
+		return BoolValue == other.BoolValue
 		       && IntegerValue == other.IntegerValue
 		       && FloatValue.Equals(other.FloatValue)
 		       && StringValue == other.StringValue;
@@ -52,6 +51,6 @@ public class BasicConfig : IEquatable<BasicConfig>
 
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(CharValue, IntegerValue, FloatValue, StringValue);
+		return HashCode.Combine(BoolValue, IntegerValue, FloatValue, StringValue);
 	}
 }

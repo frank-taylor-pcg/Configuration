@@ -17,20 +17,20 @@ public static class Helpers
 		Config<BasicConfig> config = create();
 
 		Assert.NotNull(config.Data);
-		Assert.Equal(Constants.CharValue, config.Data.CharValue);
+		Assert.Equal(Constants.BoolValue, config.Data.BoolValue);
 		Assert.Equal(Constants.IntegerValue, config.Data.IntegerValue);
 		Assert.Equal(Constants.FloatValue, config.Data.FloatValue);
 		Assert.Equal(Constants.StringValue, config.Data.StringValue);
 	}
 	
 	public static void CanSaveAndLoadConfigs<T>(CreateBasic create, string extension
-		, char c, int i, float f, string s)
+		, bool b, int i, float f, string s)
 	{
-		BasicConfig basicConfig = new(c, i, f, s);
+		BasicConfig basicConfig = new(b, i, f, s);
 		Config<BasicConfig> expected = create();
 		expected.Data = basicConfig;
 		
-		string filename = $"canSaveAndLoadConfigTest_{c}.{extension}";
+		string filename = $"canSaveAndLoadConfigTest_{i}.{extension}";
 		string path = Path.Combine(Path.GetTempPath(), "xunit", filename);
 
 		expected.Save(path);
@@ -42,7 +42,7 @@ public static class Helpers
 
 		Assert.NotNull(expected.Data);
 		Assert.NotNull(actual.Data);
-		Assert.Equal(expected.Data.CharValue, actual.Data.CharValue);
+		Assert.Equal(expected.Data.BoolValue, actual.Data.BoolValue);
 		Assert.Equal(expected.Data.FloatValue, actual.Data.FloatValue);
 		Assert.Equal(expected.Data.IntegerValue, actual.Data.IntegerValue);
 		Assert.Equal(expected.Data.StringValue, actual.Data.StringValue);
@@ -65,7 +65,7 @@ public static class Helpers
 		Assert.NotNull(expected.Data);
 		Assert.NotNull(actual.Data);
 		// The character value was not included in the PartialConfig so verify that the default was loaded
-		Assert.Equal(Constants.CharValue, actual.Data.CharValue);
+		Assert.Equal(Constants.BoolValue, actual.Data.BoolValue);
 		Assert.Equal(expected.Data.FloatValue, actual.Data.FloatValue);
 		Assert.Equal(expected.Data.IntegerValue, actual.Data.IntegerValue);
 		Assert.Equal(expected.Data.StringValue, actual.Data.StringValue);

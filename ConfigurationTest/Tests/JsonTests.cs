@@ -21,12 +21,12 @@ public class JsonTests
 	}
 	
 	[Theory]
-	[InlineData('z', 1, 2f, "3")]
-	[InlineData('y', 4, 5f, "6")]
-	[InlineData('x', 7, 8f, "9")]
-	public void CanLoadAndSaveJsonConfigs(char c, int i, float f, string s)
+	[InlineData(true, 1, 2f, "3")]
+	[InlineData(false, 4, 5f, "6")]
+	[InlineData(true, 7, 8f, "9")]
+	public void CanLoadAndSaveJsonConfigs(bool b, int i, float f, string s)
 	{
-		Helpers.CanSaveAndLoadConfigs<JsonConfig<BasicConfig>>(Create, "Json", c, i, f, s);
+		Helpers.CanSaveAndLoadConfigs<JsonConfig<BasicConfig>>(Create, "Json", b, i, f, s);
 	}
 	
 	[Theory]
