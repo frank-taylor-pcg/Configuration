@@ -1,22 +1,26 @@
 ## Things that are not currently supported by Json implementation
+```csharp
+// Duplicated the entries in the list
 List<string>
-- duplicated the entries in the list
-
+```
 
 ## Things that are not currently supported by Toml implementation
+```csharp
+// Writes something like "Other.Id" to the file so the deserialized object will have a new Guid
 Guid
-- writes something like "Other.Id" to the file so the deserialized object will have a new Guid
 
+// Loses some precision, so it won't be exact. Is accurate to at least the 1/100ths of a second
 DateTime
-- loses some precision, so it won't be exact. Is accurate to at least the 1/100ths of a second
-
+```
 
 ## Things that are not currently supported by Xml implementation
+```csharp
+// Writes characters out as their numeric equivalent
 char
-- writes characters out as their numeric equivalent
 
-DateOnly
-- didn't work at all
-
+// Duplicated the entries in the list
 List<string>
-- duplicated the entries in the list
+
+// Didn't work at all
+DateOnly
+```
