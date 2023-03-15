@@ -4,40 +4,47 @@ namespace Configuration;
 
 public abstract class Config<T>
 {
+	/// <summary>
+	/// The absolute path to the file this config should use for saving/loading
+	/// </summary>
 	public string? FilePath { get; set; }
+	
+	/// <summary>
+	/// The model / data class containing the collection of configuration properties
+	/// </summary>
 	public T? Data { get; set; }
 
+	protected Config()
+	{
+		Data = Activator.CreateInstance<T>();
+	}
+	
+	protected Config(T data)
+	{
+		Data = data;
+	}
+	
 	/// <summary>
 	/// Saves the elements in the Data component to the assigned file
 	/// </summary>
-	public void Save()
-	{
-		// Notify the user if this occurs
-		if (FilePath is null) return;
-		Save(FilePath);
-	}
+	public void Save() => Save(FilePath);
 	
 	/// <summary>
 	/// Populate the Data component of an existing Config&lt;T&gt; object with data from the assigned file
 	/// </summary>
-	public void Load()
-	{
-		// Notify the user if this occurs
-		if (FilePath is null) return;
-		Load(FilePath);
-	}
+	public void Load() => Load(FilePath);
 
 	/// <summary>
 	/// Save the elements in the Data component to the specified file 
 	/// </summary>
 	/// <param name="path">Absolute path to the config file</param>
-	public abstract void Save(string path);
+	public abstract void Save(string? path);
 
 	/// <summary>
 	/// Populate the Data component of an existing Config&lt;T&gt; object with data from the supplied file
 	/// </summary>
 	/// <param name="path">Absolute path to the config file</param>
-	public abstract void Load(string path);
+	public abstract void Load(string? path);
 
 	/// <summary>
 	/// Attempts to load a config from file and instantiate an object of the correct Config&lt;T&gt; type.

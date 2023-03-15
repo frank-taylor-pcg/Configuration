@@ -7,16 +7,12 @@ namespace Configuration;
 
 public class XmlConfig<T> : Config<T>
 {
-	// public T? Data { get; set; }
-
 	public XmlConfig()
 	{
-		Data = Activator.CreateInstance<T>();
 	}
 
-	public XmlConfig(T data)
+	public XmlConfig(T data) : base(data)
 	{
-		Data = data;
 	}
 
 	private static XmlWriterSettings GetSettings()
@@ -33,11 +29,12 @@ public class XmlConfig<T> : Config<T>
 	/// Attempts to save the current configuration values to a file
 	/// </summary>
 	/// <param name="path">Absolute path of the file for storing the configuration values</param>
-	public override void Save(string path)
+	public override void Save(string? path)
 	{
 		try
 		{
 			if (Data is null) throw new NullReferenceException(Strings.NullDataWarning);
+			if (path is null) throw new NullReferenceException(Strings.NullPathWarning);
 
 			XmlSerializer xml = new(Data.GetType());
 			using XmlWriter xr = XmlWriter.Create(path, GetSettings());
@@ -57,12 +54,14 @@ public class XmlConfig<T> : Config<T>
 	/// Attempts to load the stored configuration values
 	/// </summary>
 	/// <param name="path">Absolute path of the file for retrieving the configuration values</param>
-	public override void Load(string path)
+	public override void Load(string? path)
 	{
 		try
 		{
+			if (path is null) throw new NullReferenceException(Strings.NullPathWarning);
+
 			T? result = default;
-			
+
 			XmlSerializer xml = new(typeof(T));
 			using XmlReader xr = XmlReader.Create(path);
 			if (xml.CanDeserialize(xr))
@@ -75,7 +74,7 @@ public class XmlConfig<T> : Config<T>
 				Data = result;
 				return;
 			}
-			
+
 			string msg = string.Format(Strings.DeserializationFailure, path, GetType().Name);
 			throw new SerializationException(msg);
 		}

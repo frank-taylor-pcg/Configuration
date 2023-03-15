@@ -9,19 +9,18 @@ public class TomlConfig<T> : Config<T> where T : class, new()
 {
 	public TomlConfig()
 	{
-		Data = Activator.CreateInstance<T>();
 	}
 
-	public TomlConfig(T data)
+	public TomlConfig(T data) : base(data)
 	{
-		Data = data;
 	}
 
-	public override void Save(string path)
+	public override void Save(string? path)
 	{
 		try
 		{
 			if (Data is null) throw new NullReferenceException(Strings.NullDataWarning);
+			if (path is null) throw new NullReferenceException(Strings.NullPathWarning);
 
 			string result = Toml.FromModel(Data);
 			File.WriteAllText(path, result);
@@ -36,10 +35,12 @@ public class TomlConfig<T> : Config<T> where T : class, new()
 		}
 	}
 
-	public override void Load(string path)
+	public override void Load(string? path)
 	{
 		try
 		{
+			if (path is null) throw new NullReferenceException(Strings.NullPathWarning);
+
 			string contents = File.ReadAllText(path);
 			Toml.TryToModel(contents, out T? result, out DiagnosticsBag? diagnostics);
 			DumpDiagnosticsMessages(diagnostics);

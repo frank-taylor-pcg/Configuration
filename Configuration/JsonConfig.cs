@@ -6,16 +6,12 @@ namespace Configuration;
 
 public class JsonConfig<T> : Config<T>
 {
-	//public T? Data { get; set; }
-
 	public JsonConfig()
 	{
-		Data = Activator.CreateInstance<T>();
 	}
 
-	public JsonConfig(T data)
+	public JsonConfig(T data) : base(data)
 	{
-		Data = data;
 	}
 
 	private static JsonSerializerSettings GetSettings()
@@ -30,11 +26,12 @@ public class JsonConfig<T> : Config<T>
 	/// Attempts to save the current configuration values to a file
 	/// </summary>
 	/// <param name="path">Absolute path of the file for storing the configuration values</param>
-	public override void Save(string path)
+	public override void Save(string? path)
 	{
 		try
 		{
 			if (Data is null) throw new NullReferenceException(Strings.NullDataWarning);
+			if (path is null) throw new NullReferenceException(Strings.NullPathWarning);
 
 			string content = JsonConvert.SerializeObject(Data, GetSettings());
 			File.WriteAllText(path, content);
@@ -53,10 +50,12 @@ public class JsonConfig<T> : Config<T>
 	/// Attempts to load the stored configuration values
 	/// </summary>
 	/// <param name="path">Absolute path of the file for retrieving the configuration values</param>
-	public override void Load(string path)
+	public override void Load(string? path)
 	{
 		try
 		{
+			if (path is null) throw new NullReferenceException(Strings.NullPathWarning);
+
 			string fileContent = File.ReadAllText(path);
 			T? result = JsonConvert.DeserializeObject<T>(fileContent);
 

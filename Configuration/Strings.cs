@@ -4,6 +4,8 @@ internal static class Strings
 {
 	internal const string NullDataWarning = "Config.Data cannot be null";
 
+	internal const string NullPathWarning = "File path cannot be null";
+
 	internal static readonly string SaveFailure =
 		$"The following error occurred when attempting to call {0}:{Environment.NewLine}{1}";
 	
