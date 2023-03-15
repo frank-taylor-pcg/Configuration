@@ -1,6 +1,6 @@
 ## Things that are not currently supported by Json implementation
 ```csharp
-// Duplicated the entries in the list
+// Serialized properly, deserialization duplicated the entries in the list
 List<string>
 ```
 
@@ -13,7 +13,12 @@ Guid
 DateTime
 
 // This didn't serialize and as a result, stored nothing
+// See https://github.com/xoofx/Tomlyn/issues/55
 enum
+
+// Completely unsupported
+// See https://github.com/xoofx/Tomlyn/issues/43
+char
 ```
 
 ## Things that are not currently supported by Xml implementation
@@ -21,9 +26,9 @@ enum
 // Writes characters out as their numeric equivalent
 char
 
-// Duplicated the entries in the list
+// Serialized properly, deserialization duplicated the entries in the list
 List<string>
 
-// Didn't work at all (need details)
+// Serialized properly, deserialized as the minimum date
 DateOnly
 ```

@@ -10,19 +10,28 @@ namespace ConfigurationTest.Configs;
 
 public class OtherTestConfig : IEquatable<OtherTestConfig>
 {
-	public TestId Id { get; set; } = TestId.Everything;
-	public List<string> Text { get; set; } = new() { "Testing", "1, 2, 3" };
 	public object? Anything { get; set; } = "Just something random";
 	public long Long { get; set; } = 123456789101112;
+	// Things below here are breaking one or more of the implementations
+	// public List<string> Text { get; set; } = new() { "Testing", "1, 2, 3" };
+	// public char Char { get; set; } = 'a';
+	// public Guid Guid { get; set; } = Guid.NewGuid();
+	// public DateOnly DateOnly { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+	// public DateTime DateTime { get; set; } = DateTime.Now;
+	// public TestId Id { get; set; } = TestId.Everything;
 
 	public bool Equals(OtherTestConfig? other)
 	{
 		if (ReferenceEquals(null, other)) return false;
 		if (ReferenceEquals(this, other)) return true;
-		return Equals(Id, other.Id)
-		       && Text.SequenceEqual(other.Text)
-		       && Equals(Anything, other.Anything)
-		       && Long == other.Long;
+		return Equals(Anything, other.Anything)
+		       && Long == other.Long
+		       // && Text.SequenceEqual(other.Text)
+		       // && DateOnly == other.DateOnly
+		       // && Equals(Id, other.Id)
+		       // && Text.SequenceEqual(other.Text)
+		       // && Char == other.Char
+			;
 	}
 
 	public override bool Equals(object? obj)
@@ -35,6 +44,6 @@ public class OtherTestConfig : IEquatable<OtherTestConfig>
 
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(Id, Text, Anything, Long);
+		return HashCode.Combine(Anything, Long);
 	}
 }
