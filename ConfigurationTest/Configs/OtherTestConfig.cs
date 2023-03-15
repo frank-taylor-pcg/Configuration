@@ -8,14 +8,14 @@
 
 namespace ConfigurationTest.Configs;
 
-public class OtherConfig : IEquatable<OtherConfig>
+public class OtherTestConfig : IEquatable<OtherTestConfig>
 {
 	public TestId Id { get; set; } = TestId.Everything;
 	public List<string> Text { get; set; } = new() { "Testing", "1, 2, 3" };
 	public object? Anything { get; set; } = "Just something random";
 	public long Long { get; set; } = 123456789101112;
 
-	public bool Equals(OtherConfig? other)
+	public bool Equals(OtherTestConfig? other)
 	{
 		if (ReferenceEquals(null, other)) return false;
 		if (ReferenceEquals(this, other)) return true;
@@ -30,7 +30,7 @@ public class OtherConfig : IEquatable<OtherConfig>
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		return obj.GetType() == GetType()
-		       && Equals((OtherConfig)obj);
+		       && Equals((OtherTestConfig)obj);
 	}
 
 	public override int GetHashCode()

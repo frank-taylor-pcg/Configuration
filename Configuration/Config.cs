@@ -4,7 +4,28 @@ namespace Configuration;
 
 public abstract class Config<T>
 {
+	public string? FilePath { get; set; }
 	public T? Data { get; set; }
+
+	/// <summary>
+	/// Saves the elements in the Data component to the assigned file
+	/// </summary>
+	public void Save()
+	{
+		// Notify the user if this occurs
+		if (FilePath is null) return;
+		Save(FilePath);
+	}
+	
+	/// <summary>
+	/// Populate the Data component of an existing Config&lt;T&gt; object with data from the assigned file
+	/// </summary>
+	public void Load()
+	{
+		// Notify the user if this occurs
+		if (FilePath is null) return;
+		Load(FilePath);
+	}
 
 	/// <summary>
 	/// Save the elements in the Data component to the specified file 

@@ -5,16 +5,16 @@ namespace ConfigurationTest.Tests;
 
 public static class Helpers
 {
-	public delegate Config<BasicConfig> CreateBasic();
-	public delegate Config<ComplexConfig> CreateComplex();
-	public delegate Config<Configs.Outdated.BasicConfig> CreateOutdated();
+	public delegate Config<BasicTestConfig> CreateBasic();
+	public delegate Config<ComplexTestConfig> CreateComplex();
+	public delegate Config<Configs.Outdated.BasicTestConfig> CreateOutdated();
 	
-	public delegate Config<BasicConfig> LoadBasic(string path);
-	public delegate Config<ComplexConfig> LoadComplex(string path);
+	public delegate Config<BasicTestConfig> LoadBasic(string path);
+	public delegate Config<ComplexTestConfig> LoadComplex(string path);
 
 	public static void CanCreateConfig(CreateBasic create)
 	{
-		Config<BasicConfig> config = create();
+		Config<BasicTestConfig> config = create();
 
 		Assert.NotNull(config.Data);
 		Assert.Equal(Constants.BoolValue, config.Data.BoolValue);
@@ -26,19 +26,21 @@ public static class Helpers
 	public static void CanSaveAndLoadConfigs<T>(CreateBasic create, string extension
 		, bool b, int i, float f, string s)
 	{
-		BasicConfig basicConfig = new(b, i, f, s);
-		Config<BasicConfig> expected = create();
+		BasicTestConfig basicConfig = new(b, i, f, s);
+		Config<BasicTestConfig> expected = create();
 		expected.Data = basicConfig;
 		
 		string filename = $"canSaveAndLoadConfigTest_{i}.{extension}";
 		string path = Path.Combine(Path.GetTempPath(), "xunit", filename);
 
-		expected.Save(path);
+		expected.FilePath = path;
+		expected.Save();
 
-		Config<BasicConfig>? actual = (Config<BasicConfig>?)Activator.CreateInstance(typeof(T));
+		Config<BasicTestConfig>? actual = (Config<BasicTestConfig>?)Activator.CreateInstance(typeof(T));
 		Assert.NotNull(actual);
-		
-		actual.Load(path);
+
+		actual.FilePath = path;
+		actual.Load();
 
 		Assert.NotNull(expected.Data);
 		Assert.NotNull(actual.Data);
@@ -51,8 +53,8 @@ public static class Helpers
 	public static void DefaultsAreProperlyLoaded(CreateOutdated create, LoadBasic load, string extension,
 		int i, float f, string s, ushort u)
 	{
-		Configs.Outdated.BasicConfig outdatedConfig = new(i, f, s, u);
-		Config<Configs.Outdated.BasicConfig> expected = create();
+		Configs.Outdated.BasicTestConfig outdatedConfig = new(i, f, s, u);
+		Config<Configs.Outdated.BasicTestConfig> expected = create();
 		expected.Data = outdatedConfig;
 		
 		string filename = $"defaultsAreProperlyLoadedConfigTest.{extension}";
@@ -60,7 +62,7 @@ public static class Helpers
 
 		expected.Save(path);
 
-		Config<BasicConfig> actual = load(path);
+		Config<BasicTestConfig> actual = load(path);
 
 		Assert.NotNull(expected.Data);
 		Assert.NotNull(actual.Data);
@@ -74,14 +76,14 @@ public static class Helpers
 	//, Guid id, object? obj, long l)
 	public static void CanSaveAndLoadComplexConfigs(CreateComplex create, LoadComplex load, string extension)
 	{
-		Config<ComplexConfig> expected = create();
+		Config<ComplexTestConfig> expected = create();
 		
 		string filename = $"canSaveAndLoadComplexConfigTest.{extension}";
 		string path = Path.Combine(Path.GetTempPath(), "xunit", filename);
 
 		expected.Save(path);
 
-		Config<ComplexConfig> actual = load(path);
+		Config<ComplexTestConfig> actual = load(path);
 
 		Assert.NotNull(expected.Data);
 		Assert.NotNull(actual.Data);

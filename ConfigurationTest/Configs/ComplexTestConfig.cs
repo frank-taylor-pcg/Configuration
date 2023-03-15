@@ -11,14 +11,14 @@
 
 namespace ConfigurationTest.Configs;
 
-public class ComplexConfig : IEquatable<ComplexConfig>
+public class ComplexTestConfig : IEquatable<ComplexTestConfig>
 {
-	public BasicConfig Basic { get; set; } = new();
-	public OtherConfig Other { get; set; } = new();
+	public BasicTestConfig Basic { get; set; } = new();
+	public OtherTestConfig Other { get; set; } = new();
 
 	public double DoubleValue { get; set; } = 0.99;
 
-	public bool Equals(ComplexConfig? other)
+	public bool Equals(ComplexTestConfig? other)
 	{
 		if (ReferenceEquals(null, other)) return false;
 		if (ReferenceEquals(this, other)) return true;
@@ -32,7 +32,7 @@ public class ComplexConfig : IEquatable<ComplexConfig>
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		return obj.GetType() == GetType()
-		       && Equals((ComplexConfig)obj);
+		       && Equals((ComplexTestConfig)obj);
 	}
 
 	public override int GetHashCode()

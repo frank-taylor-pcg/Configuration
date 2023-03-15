@@ -5,14 +5,14 @@ namespace ConfigurationTest.Tests;
 
 public class XmlTests
 {
-	private static Config<BasicConfig> Create() =>
-		new XmlConfig<BasicConfig>(new BasicConfig());
+	private static Config<BasicTestConfig> Create() =>
+		new XmlConfig<BasicTestConfig>(new BasicTestConfig());
 	
-	private static Config<Configs.Outdated.BasicConfig> CreateOutdated() =>
-		new XmlConfig<Configs.Outdated.BasicConfig>(new Configs.Outdated.BasicConfig());
+	private static Config<Configs.Outdated.BasicTestConfig> CreateOutdated() =>
+		new XmlConfig<Configs.Outdated.BasicTestConfig>(new Configs.Outdated.BasicTestConfig());
 
-	private static Config<BasicConfig> LoadConfig(string path) =>
-		Config<BasicConfig>.LoadConfig<XmlConfig<BasicConfig>>(path);
+	private static Config<BasicTestConfig> LoadConfig(string path) =>
+		Config<BasicTestConfig>.LoadConfig<XmlConfig<BasicTestConfig>>(path);
 
 	[Fact]
 	public void CanCreateXmlConfig()
@@ -26,7 +26,7 @@ public class XmlTests
 	[InlineData(true, 7, 8f, "9")]
 	public void CanLoadAndSaveXmlConfigs(bool b, int i, float f, string s)
 	{
-		Helpers.CanSaveAndLoadConfigs<XmlConfig<BasicConfig>>(Create, "Xml", b, i, f, s);
+		Helpers.CanSaveAndLoadConfigs<XmlConfig<BasicTestConfig>>(Create, "Xml", b, i, f, s);
 	}
 	
 	[Theory]
@@ -41,9 +41,9 @@ public class XmlTests
 	[Fact]
 	public void CanSaveAndLoadComplexXmlConfigs()
 	{
-		Config<ComplexConfig> CreateComplex() => new XmlConfig<ComplexConfig>();
-		Config<ComplexConfig> LoadComplex(string path) =>
-			XmlConfig<ComplexConfig>.LoadConfig<XmlConfig<ComplexConfig>>(path);
+		Config<ComplexTestConfig> CreateComplex() => new XmlConfig<ComplexTestConfig>();
+		Config<ComplexTestConfig> LoadComplex(string path) =>
+			XmlConfig<ComplexTestConfig>.LoadConfig<XmlConfig<ComplexTestConfig>>(path);
 		
 		Helpers.CanSaveAndLoadComplexConfigs(CreateComplex, LoadComplex, "Xml");
 	}

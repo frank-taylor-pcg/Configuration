@@ -8,7 +8,7 @@
 
 namespace ConfigurationTest.Configs;
 
-public class BasicConfig : IEquatable<BasicConfig>
+public class BasicTestConfig : IEquatable<BasicTestConfig>
 {
 	// The setters have to exist (despite the optimization ReSharper suggests), or these won't serialize properly
 	public bool BoolValue { get; set; } = Constants.BoolValue;
@@ -16,9 +16,9 @@ public class BasicConfig : IEquatable<BasicConfig>
 	public float FloatValue { get; set; } = Constants.FloatValue;
 	public string StringValue { get; set; } = Constants.StringValue;
 
-	public BasicConfig() { }
+	public BasicTestConfig() { }
 
-	public BasicConfig(bool b, int i, float f, string s)
+	public BasicTestConfig(bool b, int i, float f, string s)
 	{
 		BoolValue = b;
 		IntegerValue = i;
@@ -31,7 +31,7 @@ public class BasicConfig : IEquatable<BasicConfig>
 		return $"{BoolValue} | {IntegerValue} | {FloatValue} | {StringValue}";
 	}
 
-	public bool Equals(BasicConfig? other)
+	public bool Equals(BasicTestConfig? other)
 	{
 		if (ReferenceEquals(null, other)) return false;
 		if (ReferenceEquals(this, other)) return true;
@@ -46,7 +46,7 @@ public class BasicConfig : IEquatable<BasicConfig>
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		return obj.GetType() == GetType()
-		       && Equals((BasicConfig)obj);
+		       && Equals((BasicTestConfig)obj);
 	}
 
 	public override int GetHashCode()

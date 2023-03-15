@@ -5,14 +5,14 @@ namespace ConfigurationTest.Tests;
 
 public class TomlTests
 {
-	private static Config<BasicConfig> Create() =>
-		new TomlConfig<BasicConfig>(new BasicConfig());
+	private static Config<BasicTestConfig> Create() =>
+		new TomlConfig<BasicTestConfig>(new BasicTestConfig());
 	
-	private static Config<Configs.Outdated.BasicConfig> CreateOutdated() =>
-		new TomlConfig<Configs.Outdated.BasicConfig>(new Configs.Outdated.BasicConfig());
+	private static Config<Configs.Outdated.BasicTestConfig> CreateOutdated() =>
+		new TomlConfig<Configs.Outdated.BasicTestConfig>(new Configs.Outdated.BasicTestConfig());
 
-	private static Config<BasicConfig> LoadConfig(string path) =>
-		Config<BasicConfig>.LoadConfig<TomlConfig<BasicConfig>>(path);
+	private static Config<BasicTestConfig> LoadConfig(string path) =>
+		Config<BasicTestConfig>.LoadConfig<TomlConfig<BasicTestConfig>>(path);
 
 	[Fact]
 	public void CanCreateTomlConfig()
@@ -26,7 +26,7 @@ public class TomlTests
 	[InlineData(true, 7, 8f, "9")]
 	public void CanLoadAndSaveTomlConfigs(bool b, int i, float f, string s)
 	{
-		Helpers.CanSaveAndLoadConfigs<TomlConfig<BasicConfig>>(Create, "Toml", b, i, f, s);
+		Helpers.CanSaveAndLoadConfigs<TomlConfig<BasicTestConfig>>(Create, "Toml", b, i, f, s);
 	}
 	
 	// Doesn't handle missing properties, so defaults aren't loaded
@@ -43,9 +43,9 @@ public class TomlTests
 	[Fact]
 	public void CanSaveAndLoadComplexTomlConfigs()
 	{
-		Config<ComplexConfig> CreateComplex() => new TomlConfig<ComplexConfig>();
-		Config<ComplexConfig> LoadComplex(string path) =>
-			TomlConfig<ComplexConfig>.LoadConfig<TomlConfig<ComplexConfig>>(path);
+		Config<ComplexTestConfig> CreateComplex() => new TomlConfig<ComplexTestConfig>();
+		Config<ComplexTestConfig> LoadComplex(string path) =>
+			TomlConfig<ComplexTestConfig>.LoadConfig<TomlConfig<ComplexTestConfig>>(path);
 		
 		Helpers.CanSaveAndLoadComplexConfigs(CreateComplex, LoadComplex, "Toml");
 	}

@@ -5,14 +5,14 @@ namespace ConfigurationTest.Tests;
 
 public class JsonTests
 {
-	private static Config<BasicConfig> Create() =>
-		new JsonConfig<BasicConfig>(new BasicConfig());
+	private static Config<BasicTestConfig> Create() =>
+		new JsonConfig<BasicTestConfig>(new BasicTestConfig());
 	
-	private static Config<Configs.Outdated.BasicConfig> CreateOutdated() =>
-		new JsonConfig<Configs.Outdated.BasicConfig>(new Configs.Outdated.BasicConfig());
+	private static Config<Configs.Outdated.BasicTestConfig> CreateOutdated() =>
+		new JsonConfig<Configs.Outdated.BasicTestConfig>(new Configs.Outdated.BasicTestConfig());
 
-	private static Config<BasicConfig> LoadConfig(string path) =>
-		Config<BasicConfig>.LoadConfig<JsonConfig<BasicConfig>>(path);
+	private static Config<BasicTestConfig> LoadConfig(string path) =>
+		Config<BasicTestConfig>.LoadConfig<JsonConfig<BasicTestConfig>>(path);
 
 	[Fact]
 	public void CanCreateJsonConfig()
@@ -26,7 +26,7 @@ public class JsonTests
 	[InlineData(true, 7, 8f, "9")]
 	public void CanLoadAndSaveJsonConfigs(bool b, int i, float f, string s)
 	{
-		Helpers.CanSaveAndLoadConfigs<JsonConfig<BasicConfig>>(Create, "Json", b, i, f, s);
+		Helpers.CanSaveAndLoadConfigs<JsonConfig<BasicTestConfig>>(Create, "Json", b, i, f, s);
 	}
 	
 	[Theory]
@@ -41,9 +41,9 @@ public class JsonTests
 	[Fact]
 	public void CanSaveAndLoadComplexJsonConfigs()
 	{
-		Config<ComplexConfig> CreateComplex() => new JsonConfig<ComplexConfig>();
-		Config<ComplexConfig> LoadComplex(string path) =>
-			JsonConfig<ComplexConfig>.LoadConfig<JsonConfig<ComplexConfig>>(path);
+		Config<ComplexTestConfig> CreateComplex() => new JsonConfig<ComplexTestConfig>();
+		Config<ComplexTestConfig> LoadComplex(string path) =>
+			JsonConfig<ComplexTestConfig>.LoadConfig<JsonConfig<ComplexTestConfig>>(path);
 		
 		Helpers.CanSaveAndLoadComplexConfigs(CreateComplex, LoadComplex, "Json");
 	}

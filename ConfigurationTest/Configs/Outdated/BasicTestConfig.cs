@@ -10,7 +10,7 @@ namespace ConfigurationTest.Configs.Outdated;
 
 // Identical to the 'new' BasicConfig, but missing the CharValue property to simulate an evolving config file
 // structure
-public class BasicConfig : IEquatable<BasicConfig>
+public class BasicTestConfig : IEquatable<BasicTestConfig>
 {
 	public int IntegerValue { get; set; } = Constants.IntegerValue;
 	public float FloatValue { get; set;  } = Constants.FloatValue;
@@ -20,9 +20,9 @@ public class BasicConfig : IEquatable<BasicConfig>
 	// This will prove that we can remove fields without breaking the configs
 	public ushort UshortValue { get; set; }
 
-	public BasicConfig() { }
+	public BasicTestConfig() { }
 
-	public BasicConfig(int i, float f, string s, ushort u)
+	public BasicTestConfig(int i, float f, string s, ushort u)
 	{
 		IntegerValue = i;
 		FloatValue = f;
@@ -35,7 +35,7 @@ public class BasicConfig : IEquatable<BasicConfig>
 		return $"{IntegerValue} | {FloatValue} | {StringValue} | {UshortValue}";
 	}
 
-	public bool Equals(BasicConfig? other)
+	public bool Equals(BasicTestConfig? other)
 	{
 		if (ReferenceEquals(null, other)) return false;
 		if (ReferenceEquals(this, other)) return true;
@@ -49,7 +49,7 @@ public class BasicConfig : IEquatable<BasicConfig>
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		return obj.GetType() == GetType()
-		       && Equals((BasicConfig)obj);
+		       && Equals((BasicTestConfig)obj);
 	}
 
 	public override int GetHashCode()
