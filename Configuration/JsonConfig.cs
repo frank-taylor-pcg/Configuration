@@ -77,11 +77,4 @@ public class JsonConfig<T> : Config<T>
 				throw;
 		}
 	}
-
-	// public static JsonConfig<T> LoadConfig(string path)
-	// {
-	// 	JsonConfig<T> result = new();
-	// 	result.Load(path);
-	// 	return result;
-	// }
 }

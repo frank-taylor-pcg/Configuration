@@ -88,12 +88,4 @@ public class XmlConfig<T> : Config<T>
 				throw;
 		}
 	}
-
-	// // Is there a way to do this once instead of in each derived Config class?
-	// public static XmlConfig<T> LoadConfig(string path)
-	// {
-	// 	XmlConfig<T> result = new();
-	// 	result.Load(path);
-	// 	return result;
-	// }
 }

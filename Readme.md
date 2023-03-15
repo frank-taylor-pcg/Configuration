@@ -11,6 +11,9 @@ Guid
 
 // Loses some precision, so it won't be exact. Is accurate to at least the 1/100ths of a second
 DateTime
+
+// This didn't serialize and as a result, stored nothing
+enum
 ```
 
 ## Things that are not currently supported by Xml implementation
@@ -21,6 +24,6 @@ char
 // Duplicated the entries in the list
 List<string>
 
-// Didn't work at all
+// Didn't work at all (need details)
 DateOnly
 ```

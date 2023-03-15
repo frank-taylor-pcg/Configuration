@@ -10,6 +10,7 @@ namespace ConfigurationTest.Configs;
 
 public class OtherConfig : IEquatable<OtherConfig>
 {
+	public TestId Id { get; set; } = TestId.Everything;
 	public List<string> Text { get; set; } = new() { "Testing", "1, 2, 3" };
 	public object? Anything { get; set; } = "Just something random";
 	public long Long { get; set; } = 123456789101112;
@@ -18,7 +19,8 @@ public class OtherConfig : IEquatable<OtherConfig>
 	{
 		if (ReferenceEquals(null, other)) return false;
 		if (ReferenceEquals(this, other)) return true;
-		return Text.SequenceEqual(other.Text)
+		return Equals(Id, other.Id)
+		       && Text.SequenceEqual(other.Text)
 		       && Equals(Anything, other.Anything)
 		       && Long == other.Long;
 	}
@@ -33,6 +35,6 @@ public class OtherConfig : IEquatable<OtherConfig>
 
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(Text, Anything, Long);
+		return HashCode.Combine(Id, Text, Anything, Long);
 	}
 }
