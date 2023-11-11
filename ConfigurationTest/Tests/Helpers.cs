@@ -12,6 +12,14 @@ public static class Helpers
 	public delegate Config<BasicTestConfig> LoadBasic(string path);
 	public delegate Config<ComplexTestConfig> LoadComplex(string path);
 
+	private static void CreateTestPathIfNotExists(string path)
+	{
+		if (!Path.Exists(path))
+		{
+			Directory.CreateDirectory(path);
+		}
+	}
+
 	public static void CanCreateConfig(CreateBasic create)
 	{
 		Config<BasicTestConfig> config = create();
@@ -31,6 +39,8 @@ public static class Helpers
 		expected.Data = basicConfig;
 		
 		string filename = $"canSaveAndLoadConfigTest_{i}.{extension}";
+		string basePath = Path.Combine(Path.GetTempPath(), "xunit");
+		CreateTestPathIfNotExists(basePath);
 		string path = Path.Combine(Path.GetTempPath(), "xunit", filename);
 
 		expected.FilePath = path;
